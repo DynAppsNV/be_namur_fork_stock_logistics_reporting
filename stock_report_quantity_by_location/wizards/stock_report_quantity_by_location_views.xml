@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!--
-Copyright 2019 Eficent Business and IT Consulting Services, S.L.
-License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
--->
+<?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <record id="stock_report_quantity_by_location_prepare_form_view" model="ir.ui.view">
         <field name="name">Stock Report Quantity By Location Prepare</field>
@@ -18,50 +14,33 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
                     </group>
                 </group>
                 <footer>
-                    <button
-                        name="open"
-                        string="Retrieve the Inventory Quantities"
-                        type="object"
-                        class="btn-primary"
-                    />
+                    <button name="open" string="Retrieve the Inventory Quantities" type="object" class="btn-primary" />
                     <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
             </form>
         </field>
     </record>
-    <record
-        id="action_stock_report_quantity_by_location_prepare"
-        model="ir.actions.act_window"
-    >
+    <record id="action_stock_report_quantity_by_location_prepare" model="ir.actions.act_window">
         <field name="name">Inventory By Location</field>
         <field name="res_model">stock.report.quantity.by.location.prepare</field>
         <field name="view_mode">form</field>
-        <field
-            name="view_id"
-            ref="stock_report_quantity_by_location_prepare_form_view"
-        />
+        <field name="view_id" ref="stock_report_quantity_by_location_prepare_form_view" />
         <field name="target">new</field>
     </record>
-    <menuitem
-        id="menu_quantity_by_location"
-        name="Inventory by Location"
-        parent="stock.menu_warehouse_report"
-        action="action_stock_report_quantity_by_location_prepare"
-        groups="stock.group_stock_manager"
-    />
+    <menuitem id="menu_quantity_by_location" name="Inventory by Location" parent="stock.menu_warehouse_report" action="action_stock_report_quantity_by_location_prepare" groups="stock.group_stock_manager" />
 
     <record id="stock_report_quantity_by_location_tree_view" model="ir.ui.view">
         <field name="name">Stock Report Quantity By Location Form</field>
         <field name="model">stock.report.quantity.by.location</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="product_id" />
                 <field name="location_id" />
                 <field name="quantity_on_hand" />
                 <field name="quantity_reserved" />
                 <field name="quantity_unreserved" />
                 <field name="uom_id" groups="uom.group_uom" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -88,19 +67,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
                 <field name="default_code" />
                 <field name="location_id" groups="stock.group_stock_multi_locations" />
                 <field name="product_category_id" />
-                <filter
-                    name="quantity_gt_zero"
-                    string="Quantity On Hand > 0"
-                    domain="[('quantity_on_hand', '>', '0.0')]"
-                />
+                <filter name="quantity_gt_zero" string="Quantity On Hand &gt; 0" domain="[('quantity_on_hand', '&gt;', '0.0')]" />
                 <group expand="0" string="Group By">
-                    <filter
-                        name="location"
-                        string="Location"
-                        domain="[]"
-                        context="{'group_by':'location_id'}"
-                        help="Group by Location"
-                    />
+                    <filter name="location" string="Location" domain="[]" context="{'group_by':'location_id'}" help="Group by Location" />
                 </group>
             </search>
         </field>
