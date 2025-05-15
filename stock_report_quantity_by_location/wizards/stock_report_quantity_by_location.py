@@ -26,7 +26,7 @@ class StockReportByLocationPrepare(models.TransientModel):
         self._compute_stock_report_by_location()
         action = {
             "type": "ir.actions.act_window",
-            "view_mode": "pivot,tree",
+            "view_mode": "pivot,list",
             "name": _("Stock Report by Location"),
             "context": {
                 "search_default_quantity_gt_zero": 1,

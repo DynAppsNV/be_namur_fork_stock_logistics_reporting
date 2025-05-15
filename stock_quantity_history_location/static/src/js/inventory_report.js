@@ -1,25 +1,17 @@
-odoo.define(
-    "stock_quantity_history_location.InventoryReportListController",
-    function (require) {
-        "use strict";
+/** @odoo-module **/
 
-        const session = require("web.session");
-        const InventoryReportListController = require("stock.InventoryReportListController");
+import { session } from "@web/session";
+import { InventoryReportListModel } from "@stock/views/list/inventory_report_list_model";
 
-        InventoryReportListController.include({
-            init: function () {
-                this._super.apply(this, arguments);
-                this.multi_location = false;
-            },
-            willStart: function () {
-                const sup = this._super(...arguments);
-                const user_group = session
-                    .user_has_group("stock.group_stock_multi_locations")
-                    .then((hasGroup) => {
-                        this.multi_location = hasGroup;
-                    });
-                return Promise.all([sup, user_group]);
-            },
-        });
+export class InventoryReportListModelExtended extends InventoryReportListModel {
+    setup() {
+        super.setup();
+        this.multi_location = false;
     }
-);
+
+    async willStart() {
+        await super.willStart();
+        this.multi_location = await session.user_has_group("stock.group_stock_multi_locations");
+    }
+}
+
